@@ -1,0 +1,31 @@
+[
+  {
+    "sender": "iagl",
+    "message": "teste"
+  },
+  {
+    "sender": "iagl",
+    "message": "oi",
+    "action": "message"
+  },
+  {
+    "sender": "iagl",
+    "message": "oi",
+    "action": "message"
+  },
+  {
+    "sender": "guero",
+    "message": "teste",
+    "action": "message"
+  },
+  {
+    "sender": "guero",
+    "message": "teste",
+    "action": "message"
+  },
+  {
+    "sender": "guero",
+    "message": "teste",
+    "action": "message"
+  }
+]

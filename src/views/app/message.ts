@@ -1,10 +1,10 @@
 import { TextareaRenderable, BoxRenderable } from '@opentui/core';
 import { renderer } from '../renderer'
 import { client } from '../../../index'
-import { UserConfig } from '../../config/user-config'
 import type { TMessage } from '../../types/message';
+import { UserConfigRepository } from '../../repositories/user-config';
 
-const { username, nickname } = UserConfig.get();
+const { username, nickname } = UserConfigRepository.get();
 
 const message = new BoxRenderable(renderer, {
     id: 'message',

@@ -1,6 +1,7 @@
 import net from "node:net";
-import { UserConfig } from "../config/user-config";
 import type { TMessage } from "../types/message";
+import fs from "node:fs";
+import { UserConfigRepository } from "../repositories/user-config";
 
 export class Client {
     private socket: net.Socket;
@@ -14,8 +15,9 @@ export class Client {
             port: Number(process.env.TUI_CHAT_SERVER_PORT), 
             host: process.env.TUI_CHAT_SERVER_HOST 
         }, () => {
+            const { nickname } = UserConfigRepository.get();
             const message: TMessage = { 
-                sender: UserConfig.get().nickname, 
+                sender: nickname, 
                 message: "connected", 
                 action: "connection" 
             };
@@ -29,8 +31,11 @@ export class Client {
     }
 
     private recieveMessage(): void {
-        this.socket.on("data", (data: TMessage | string) => {
+        this.socket.on("data", (data: string) => {
             console.log(`Received: ${data.toString()}`);
+            const path: string = process.cwd() + '/messages.json';
+            const message: TMessage = JSON.parse(data)
+            fs.writeFileSync(path, JSON.stringify(message, null, 2));
         });
     }
 

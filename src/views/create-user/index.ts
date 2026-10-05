@@ -1,6 +1,7 @@
 import { BoxRenderable, InputRenderable, InputRenderableEvents, TextRenderable } from "@opentui/core";
 import { renderer } from "../renderer";
-import { UserConfig } from "../../config/user-config";
+import { UserConfigRepository } from "../../repositories/user-config";
+import type { TUserConfig } from "../../types/user-config";
 
 const createUserContainer = new BoxRenderable(renderer, {
     id: 'create-user',
@@ -43,18 +44,18 @@ const configThank = new TextRenderable(renderer, {
     fg: '#00ff00'
 }); 
 
-const user: { username: string; nickname: string } = { username: '', nickname: '' };
+const userConfig: TUserConfig = { username: '', nickname: '' };
+
 usernameInput.on(InputRenderableEvents.CHANGE, (value: string) => {
-  console.log("Current value:", value)
-  user.username = value;
+  userConfig.username = value;
 }).on(InputRenderableEvents.ENTER, () => {
   nicknameInput.focus();
 })
 
 nicknameInput.on(InputRenderableEvents.ENTER, (value: string) => {
-  console.log("Current value:", value)
-  user.nickname = value.toLowerCase().replaceAll(' ', '_');
-  UserConfig.save(user.username, user.nickname);
+  userConfig.nickname = value.toLowerCase().replaceAll(' ', '_');
+  const config = { username: userConfig.username, nickname: userConfig.nickname };
+  UserConfigRepository.save(config);
   createUserContainer.add(configThank);
 })
 

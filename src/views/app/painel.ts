@@ -1,8 +1,8 @@
 import { BoxRenderable, TextRenderable } from "@opentui/core";
 import { renderer } from "../renderer";
-import { UserConfig } from "../../config/user-config";
+import { UserConfigRepository } from "../../repositories/user-config";
 
-const { username, nickname } = UserConfig.get();
+const { username, nickname } = UserConfigRepository.get();
 
 const painel = new BoxRenderable(renderer, {
     id: 'painel',
