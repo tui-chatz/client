@@ -1,6 +1,7 @@
 import { BoxRenderable, TextRenderable } from "@opentui/core";
 import { renderer } from "../renderer";
 import { UserConfigRepository } from "../../repositories/user-config";
+import { MessagesRepository } from "../../repositories/messages";
 
 const { username, nickname } = UserConfigRepository.get();
 
@@ -14,7 +15,10 @@ const painel = new BoxRenderable(renderer, {
 
 const text = new TextRenderable(renderer, {
     id: 'text',
-    content: 'Not implemented'
+    content: MessagesRepository
+        .get()
+        .map((message) => `[${message.sender}] > ${message.message}`)
+        .join('\n')
 });
 
 painel.add(text);
