@@ -12,6 +12,7 @@ export class Client {
             port: Number(process.env.TUI_CHAT_SERVER_PORT), 
             host: process.env.TUI_CHAT_SERVER_HOST 
         }, () => {
+            this.sendMessage({ nickname: process.env.TUI_CHAT_USER_NICKNAME, message: "connected" });
             console.log(`Connected to server at ${process.env.TUI_CHAT_SERVER_HOST}:${process.env.TUI_CHAT_SERVER_PORT}`);
         }).setEncoding("utf-8");
 
@@ -38,8 +39,8 @@ export class Client {
         });
     }
 
-    public sendMessage(message: string): void {
-        this.socket.write(message);
+    public sendMessage(message: { nickname: string | undefined, message: string }): void {
+        this.socket.write(JSON.stringify(message));
     }
 
     public disconnect(): void {
