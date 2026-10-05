@@ -1,4 +1,6 @@
 import net from "node:net";
+import { UserConfig } from "../config/user-config";
+import type { TMessage } from "../types/message";
 
 export class Client {
     private socket: net.Socket;
@@ -12,7 +14,12 @@ export class Client {
             port: Number(process.env.TUI_CHAT_SERVER_PORT), 
             host: process.env.TUI_CHAT_SERVER_HOST 
         }, () => {
-            this.sendMessage({ nickname: process.env.TUI_CHAT_USER_NICKNAME, message: "connected" });
+            const message: TMessage = { 
+                sender: UserConfig.get().nickname, 
+                message: "connected", 
+                action: "connection" 
+            };
+            this.sendMessage(message);
             console.log(`Connected to server at ${process.env.TUI_CHAT_SERVER_HOST}:${process.env.TUI_CHAT_SERVER_PORT}`);
         }).setEncoding("utf-8");
 
@@ -22,7 +29,7 @@ export class Client {
     }
 
     private recieveMessage(): void {
-        this.socket.on("data", (data) => {
+        this.socket.on("data", (data: TMessage | string) => {
             console.log(`Received: ${data.toString()}`);
         });
     }
@@ -39,7 +46,7 @@ export class Client {
         });
     }
 
-    public sendMessage(message: { nickname: string | undefined, message: string }): void {
+    public sendMessage(message: TMessage): void {
         this.socket.write(JSON.stringify(message));
     }
 

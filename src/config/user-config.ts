@@ -22,6 +22,8 @@ export namespace UserConfig {
 
     export function get(): { username: string; nickname: string } {
         const path = process.cwd() + '/config.json';
+        const configExists = fs.existsSync(path);
+        if (!configExists) fs.writeFileSync(path, JSON.stringify({}, null, 2));
         const config = JSON.parse(fs.readFileSync(path, "utf-8"));
         return {
             username: config.username || '',

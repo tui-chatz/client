@@ -16,7 +16,3 @@ client.connect();
 if (isValidUser) {
     renderer.root.add(app);
 }
-
-// 
-// 
-// renderer.root.add(app);

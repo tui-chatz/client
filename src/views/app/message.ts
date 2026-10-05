@@ -2,6 +2,7 @@ import { TextareaRenderable, BoxRenderable } from '@opentui/core';
 import { renderer } from '../renderer'
 import { client } from '../../../index'
 import { UserConfig } from '../../config/user-config'
+import type { TMessage } from '../../types/message';
 
 const { username, nickname } = UserConfig.get();
 
@@ -14,8 +15,12 @@ const message = new BoxRenderable(renderer, {
 
 const textArea = new TextareaRenderable(renderer, {
     onSubmit: () => {
-        let value: { sender: string; message: string } = { sender: nickname, message: textArea.plainText };
-        client.sendMessage(JSON.stringify(value));
+        let value: TMessage = { 
+            sender: nickname, 
+            message: textArea.plainText,
+            action: "message"
+        };
+        client.sendMessage(value);
         textArea.clear();
     },
     keyBindings: [{ name: 'return', action: 'submit' }]
