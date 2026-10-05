@@ -1,6 +1,6 @@
 import { BoxRenderable, InputRenderable, InputRenderableEvents, TextRenderable } from "@opentui/core";
 import { renderer } from "../renderer";
-import { UserConfig } from "../../../config/user-config";
+import { UserConfig } from "../../config/user-config";
 
 const createUserContainer = new BoxRenderable(renderer, {
     id: 'create-user',

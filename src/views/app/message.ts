@@ -1,7 +1,7 @@
 import { TextareaRenderable, BoxRenderable } from '@opentui/core';
 import { renderer } from '../renderer'
 import { client } from '../../../index'
-import { UserConfig } from '../../../config/user-config'
+import { UserConfig } from '../../config/user-config'
 
 const { username, nickname } = UserConfig.get();
 

@@ -2,7 +2,7 @@ import { app } from "./src/views/app";
 import { renderer } from "./src/views/renderer";
 import { createUserContainer } from "./src/views/create-user";
 import { Client } from "./src/tcp/client";
-import { UserConfig } from "./config/user-config";
+import { UserConfig } from "./src/config/user-config";
 
 const isValidUser = UserConfig.validate();
 
