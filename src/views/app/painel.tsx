@@ -1,4 +1,14 @@
+import { useState } from "react";
+import { eventEmitter } from "../../infra/event-emitter";
+import { TMessage } from "../../types/message";
+
 export function Painel() {
+    const [messages, setMessages] = useState<string[]>([]);
+
+    eventEmitter.on('renderizeNewMessages', (newMessages: TMessage[]) => {
+        setMessages(newMessages.map(msg => `[${msg.sender}]:: ${msg.message}`));
+    });
+
     return (
         <box 
             borderColor="#ffffffaa" 
@@ -6,7 +16,9 @@ export function Painel() {
             width="75%" 
             title="Painel"
         >
-            <text>Not implemented</text>
+            {messages.map((msg, index) => (
+                <text key={index}>{msg}</text>
+            ))}
         </box>
     )
 }

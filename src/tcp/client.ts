@@ -2,7 +2,6 @@ import net from "node:net";
 import type { TMessage } from "../types/message";
 import { UserConfigRepository } from "../repositories/user-config";
 import { MessagesRepository } from "../repositories/messages";
-import { EventEmitter } from "node:events";
 import { eventEmitter } from "../infra/event-emitter";
 
 export class Client {
@@ -38,7 +37,7 @@ export class Client {
             MessagesRepository.saveAll(messagesRecivied);
 
             // Criar evento para atualizar a interface do usuário com a nova mensagem
-            eventEmitter.emit("newMessage", messagesRecivied);
+            eventEmitter.emit("renderizeNewMessages", messagesRecivied);
             messagesRecivied = [];
         });
     }
