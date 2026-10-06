@@ -11,11 +11,12 @@ client.connect();
 
 function Index() {
   const renderer = useRenderer();
-
-  useEffect(() => {
-    renderer.console.show();
-    console.log("Renderer console shown");
-  }, [])
+  // // Exibir console: deixar descomentado
+  // // Não exibir console: deixar comentado
+  // useEffect(() => {
+  //   renderer.console.show();
+  //   console.log("Renderer console shown");
+  // }, [])
 
   const isValidUser = UserConfigValidation.validateIfExists();
 
