@@ -34,8 +34,7 @@ export class Client {
 
     private recieveMessage(): void {
         this.socket.on("data", (data: string) => {
-            console.log(`Received: ${data.toString()}`);
-            let messagesRecivied: TMessage[] = JSON.parse(data);
+            let messagesRecivied: TMessage[] = JSON.parse(data.toString());
             MessagesRepository.saveAll(messagesRecivied);
 
             // Criar evento para atualizar a interface do usuário com a nova mensagem
