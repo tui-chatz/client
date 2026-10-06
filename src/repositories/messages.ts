@@ -17,6 +17,13 @@ export class MessagesRepository {
         fs.writeFileSync(this.path, JSON.stringify(messages, null, 2));
     }
 
+    public static saveAll(messages: TMessage[]): void {
+        if (!this.exists()) {
+            fs.writeFileSync(this.path, JSON.stringify([]));
+        }
+        fs.writeFileSync(this.path, JSON.stringify(messages, null, 2));
+    }
+
     public static get(): TMessage[] {
         if (!this.exists()) {
             fs.writeFileSync(this.path, JSON.stringify([]));

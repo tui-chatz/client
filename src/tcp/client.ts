@@ -1,7 +1,9 @@
 import net from "node:net";
 import type { TMessage } from "../types/message";
-import fs from "node:fs";
 import { UserConfigRepository } from "../repositories/user-config";
+import { MessagesRepository } from "../repositories/messages";
+import { EventEmitter } from "node:events";
+import { eventEmitter } from "../infra/event-emitter";
 
 export class Client {
     private socket: net.Socket;
@@ -33,9 +35,12 @@ export class Client {
     private recieveMessage(): void {
         this.socket.on("data", (data: string) => {
             console.log(`Received: ${data.toString()}`);
-            const path: string = process.cwd() + '/messages.json';
-            const message: TMessage = JSON.parse(data)
-            fs.writeFileSync(path, JSON.stringify(message, null, 2));
+            let messagesRecivied: TMessage[] = JSON.parse(data);
+            MessagesRepository.saveAll(messagesRecivied);
+
+            // Criar evento para atualizar a interface do usuário com a nova mensagem
+            eventEmitter.emit("newMessage", messagesRecivied);
+            messagesRecivied = [];
         });
     }
 

@@ -1,7 +1,9 @@
 import { BoxRenderable, TextRenderable } from "@opentui/core";
+import type { TMessage } from "../../types/message";
 import { renderer } from "../renderer";
 import { UserConfigRepository } from "../../repositories/user-config";
 import { MessagesRepository } from "../../repositories/messages";
+import { eventEmitter } from "../../infra/event-emitter";
 
 const { username, nickname } = UserConfigRepository.get();
 
@@ -13,14 +15,23 @@ const painel = new BoxRenderable(renderer, {
     title: `Painel - ${username} (${nickname})`
 });
 
-const text = new TextRenderable(renderer, {
-    id: 'text',
-    content: MessagesRepository
-        .get()
-        .map((message) => `[${message.sender}] > ${message.message}`)
-        .join('\n')
+eventEmitter.on("newMessage", (messages: TMessage[]) => {
+    //const text = new TextRenderable(renderer, {
+    //    id: 'text',
+    //    content: messages
+    //        .map((message) => `[${message.sender}] > ${message.message}`)
+    //        .join('\n')
+    //});
+    //painel.remove(text);
+    //painel.add(text);
+    for (const message of messages) {
+        const text = new TextRenderable(renderer, {
+            id: `text-${message.sender}-${Date.now()}`,
+            //content: `[${message.sender}] > ${message.message}`
+            content: `[${message.sender}] > ${message.message}`
+        });
+        painel.add(text);
+    }
 });
-
-painel.add(text);
 
 export { painel };
