@@ -7,10 +7,9 @@ import { useEffect } from "react";
 import { CreateUser } from "./src/views/create-user";
 
 export const client: Client = new Client();
-client.connect();
 
 function Index() {
-  const renderer = useRenderer();
+  // const renderer = useRenderer();
   // // Exibir console: deixar descomentado
   // // Não exibir console: deixar comentado
   // useEffect(() => {

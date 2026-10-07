@@ -4,7 +4,7 @@ import { TMessage } from "../../types/message";
 import { useEffect, useState } from "react";
 
 export function Message() {
-    const { username, nickname } = UserConfigRepository.get();
+    const { nickname } = UserConfigRepository.get();
     const [contentTextarea, setContentTextarea] = useState<string>(""); 
 
     useEffect(() => {
@@ -27,7 +27,7 @@ export function Message() {
         <box
             borderColor="#ffffffaa"
             borderStyle="rounded"
-            title="message"
+            title="Message"
         >
             <input 
                 focused={true}

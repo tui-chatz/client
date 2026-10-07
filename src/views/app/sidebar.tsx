@@ -4,7 +4,7 @@ export function Sidebar() {
             borderColor="#ffffffaa" 
             borderStyle="rounded" 
             width="25%"
-            title="contacts"
+            title="Rooms"
         >
             <text>Not implemented</text>
         </box>

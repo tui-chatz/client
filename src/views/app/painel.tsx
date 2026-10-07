@@ -2,6 +2,8 @@ import { Dispatch, SetStateAction, useState } from "react";
 import type { Client } from "../../infra/client";
 import { Observer } from "../../patterns/observer/observer";
 import { client } from "../../..";
+import { UserConfigRepository } from "../../repositories/user-config";
+import { TUserConfig } from "../../types/user-config";
 
 class PainelObserver implements Observer {
     constructor(
@@ -23,12 +25,14 @@ export function Painel() {
 
     client.subscribe(painelObserver);
 
+    const { username, nickname }: TUserConfig = UserConfigRepository.get();
+
     return (
         <box 
             borderColor="#ffffffaa" 
             borderStyle="rounded" 
             width="75%" 
-            title="Painel"
+            title={`Painel - ${username} [${nickname}]`}
         >
             {messages.map((msg, index) => (
                 <text key={index}>{msg}</text>

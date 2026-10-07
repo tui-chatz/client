@@ -4,7 +4,7 @@ export function Header() {
             borderColor="#ffffffaa" 
             borderStyle="rounded"
         >
-            <text fg="#ffffff">TUI Chat</text>
+            <text fg="#ffffff">ChaTUI</text>
         </box>
     )
 }
