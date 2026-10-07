@@ -2,10 +2,13 @@ import net from "node:net";
 import type { TMessage } from "../types/message";
 import { UserConfigRepository } from "../repositories/user-config";
 import { MessagesRepository } from "../repositories/messages";
-import { eventEmitter } from "../infra/event-emitter";
+import { Observer } from "../patterns/observer/observer";
+import { Subject } from "../patterns/observer/subject";
 
-export class Client {
+export class Client implements Subject {
     private socket: net.Socket;
+    private observers: Observer[] = [];
+    private messages: TMessage[] = [];
 
     constructor() {
         this.socket = new net.Socket();
@@ -31,14 +34,16 @@ export class Client {
         this.endHandler();
     }
 
+    public getMessages(): TMessage[] {
+        return this.messages;
+    }
+
     private recieveMessage(): void {
         this.socket.on("data", (data: string) => {
-            let messagesRecivied: TMessage[] = JSON.parse(data.toString());
+            const messagesRecivied: TMessage[] = JSON.parse(data.toString());
+            this.messages = messagesRecivied;
             MessagesRepository.saveAll(messagesRecivied);
-
-            // Criar evento para atualizar a interface do usuário com a nova mensagem
-            eventEmitter.emit("renderizeNewMessages", messagesRecivied);
-            messagesRecivied = [];
+            this.notify();
         });
     }
 
@@ -60,5 +65,20 @@ export class Client {
 
     public disconnect(): void {
         this.socket.end();
+    }
+
+    public subscribe(...observers: Observer[]): void {
+        for (const observer of observers) {
+            if (this.observers.includes(observer)) continue;
+            this.observers.push(observer);
+        }
+    }
+
+    public unsubscribe(observer: Observer): void {
+        this.observers = this.observers.filter(ob => ob !== observer);
+    }
+
+    public notify(): void {
+        for (const observer of this.observers) observer.update(this);
     }
 }

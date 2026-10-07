@@ -1,13 +1,27 @@
-import { useState } from "react";
-import { eventEmitter } from "../../infra/event-emitter";
-import { TMessage } from "../../types/message";
+import { Dispatch, SetStateAction, useState } from "react";
+import type { Client } from "../../infra/client";
+import { Observer } from "../../patterns/observer/observer";
+import { client } from "../../..";
+
+class PainelObserver implements Observer {
+    constructor(
+        private setMessages: Dispatch<SetStateAction<string[]>>
+    ) {}
+    update(client: Client): void {
+        this.setMessages(
+            client.getMessages()
+                .map(msg => `[${msg.sender}]:: ${msg.message}`)
+        );
+    }
+
+}
 
 export function Painel() {
     const [messages, setMessages] = useState<string[]>([]);
 
-    eventEmitter.on('renderizeNewMessages', (newMessages: TMessage[]) => {
-        setMessages(newMessages.map(msg => `[${msg.sender}]:: ${msg.message}`));
-    });
+    const painelObserver: PainelObserver = new PainelObserver(setMessages);
+
+    client.subscribe(painelObserver);
 
     return (
         <box 

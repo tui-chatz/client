@@ -1,7 +1,7 @@
 import { createCliRenderer } from "@opentui/core"
 import { createRoot, useRenderer } from "@opentui/react"
 import { App } from "./src/views/app"
-import { Client } from "./src/tcp/client";
+import { Client } from "./src/infra/client";
 import { UserConfigValidation } from "./src/validations/user-config";
 import { useEffect } from "react";
 import { CreateUser } from "./src/views/create-user";
