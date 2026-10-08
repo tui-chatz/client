@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { UserConfigRepository } from "../../repositories/user-config";
+import { style } from "../../..";
 
 export function CreateUser() {
     const [focus, setFocus] = useState<'username' | 'nickname'>('username');
@@ -15,17 +16,21 @@ export function CreateUser() {
 
     return (
         <box
+            backgroundColor={style.get().backgroundColor}
+            height="100%"
+        >
+            <box
             id="create-user"
             borderStyle="rounded"
-            borderColor="#ffffffaa"
+            borderColor={style.get().secondary}
             title="Create User"
         >
-            {!success && <text fg="#ffff00">User does not exist. Please create a user for yourself.</text>}
-            {success && <text fg="#00ff00">Configuration saved successfully! Reinitialize the application to apply changes.</text>}
+            {!success && <text fg={style.get().warning}>User does not exist. Please create a user for yourself.</text>}
+            {success && <text fg={style.get().success}>Configuration saved successfully! Reinitialize the application to apply changes.</text>}
             <box
                 id="username-label"
                 borderStyle="rounded"
-                borderColor="#ffffffaa"
+                borderColor={style.get().secondary}
                 title="user name"
             >
                 <input 
@@ -40,7 +45,7 @@ export function CreateUser() {
             <box
                 id="nickname-label"
                 borderStyle="rounded"
-                borderColor="#ffffffaa"
+                borderColor={style.get().secondary}
                 title="nick name"
             >
                 <input 
@@ -52,6 +57,7 @@ export function CreateUser() {
                     onChange={handleSubmit}
                 />
             </box>
+        </box>
         </box>
     );
 }

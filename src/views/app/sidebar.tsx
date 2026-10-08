@@ -1,7 +1,9 @@
+import { style } from "../../..";
+
 export function Sidebar() {
     return (
         <box 
-            borderColor="#ffffffaa" 
+            borderColor={style.get().secondary} 
             borderStyle="rounded" 
             width="25%"
             title="Rooms"

@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { logo } from "../../public/logo";
+import { style } from "../../..";
 
 type Props = {
     setStart: Dispatch<SetStateAction<boolean>>
@@ -14,13 +15,13 @@ export function Logo({
             justifyContent="center" 
             alignItems="center"
             borderStyle="rounded"
-            borderColor='#04DFDB55'
+            borderColor={style.get().secondary}
             height='100%'
-            backgroundColor='#061C33'
+            backgroundColor={style.get().backgroundColor}
         >
-            <text fg='#04DFDB' >{logo}</text>
+            <text fg={style.get().primary} >{logo}</text>
             <box flexDirection="row">
-                <text fg='#04DFDB55'>Press any key to continue...</text>
+                <text fg={style.get().secondary}>Press any key to continue...</text>
                 <input 
                     focused
                     onInput={() => setStart(true)}

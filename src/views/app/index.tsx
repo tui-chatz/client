@@ -4,7 +4,7 @@ import { Message } from "./message";
 import { Painel } from "./painel";
 import { Sidebar } from "./sidebar";
 import { Logo } from "./logo";
-import { client } from "../../..";
+import { client, style } from "../../..";
 
 export function App() {
     const [start, setStart] = useState<boolean>(false);
@@ -15,7 +15,8 @@ export function App() {
 
     return (
         <box 
-            borderColor="#ffffffaa" 
+            borderColor={style.get().secondary}
+            backgroundColor={style.get().backgroundColor}
             borderStyle="rounded" 
             width="100%" 
             height="100%"

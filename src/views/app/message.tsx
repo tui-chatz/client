@@ -1,4 +1,4 @@
-import { client } from "../../..";
+import { client, style } from "../../..";
 import { UserConfigRepository } from "../../repositories/user-config";
 import { TMessage } from "../../types/message";
 import { useEffect, useState } from "react";
@@ -25,7 +25,7 @@ export function Message() {
 
     return (
         <box
-            borderColor="#ffffffaa"
+            borderColor={style.get().secondary}
             borderStyle="rounded"
             title="Message"
         >

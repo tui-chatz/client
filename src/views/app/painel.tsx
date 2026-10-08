@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import type { Client } from "../../infra/client";
 import { Observer } from "../../patterns/observer/observer";
-import { client } from "../../..";
+import { client, style } from "../../..";
 import { UserConfigRepository } from "../../repositories/user-config";
 import { TUserConfig } from "../../types/user-config";
 
@@ -29,7 +29,7 @@ export function Painel() {
 
     return (
         <box 
-            borderColor="#ffffffaa" 
+            borderColor={style.get().secondary}
             borderStyle="rounded" 
             width="75%" 
             title={`Painel - ${username} [${nickname}]`}

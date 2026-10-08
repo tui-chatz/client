@@ -5,8 +5,10 @@ import { Client } from "./src/infra/client";
 import { UserConfigValidation } from "./src/validations/user-config";
 import { useEffect } from "react";
 import { CreateUser } from "./src/views/create-user";
+import { Style } from "./src/views/styles/style";
 
 export const client: Client = new Client();
+export const style: Style = new Style("default");
 
 function Index() {
   // const renderer = useRenderer();
@@ -24,5 +26,5 @@ function Index() {
   return <App />;
 }
 
-const renderer = await createCliRenderer()
+const renderer = await createCliRenderer({ backgroundColor: style.get().backgroundColor })
 createRoot(renderer).render(<Index />)
