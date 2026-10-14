@@ -1,14 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
+import { TRenderScreen } from "../../types/render-screen";
 import { logo } from "../../public/logo";
 import { style } from "../../..";
 
 type Props = {
-    setStart: Dispatch<SetStateAction<boolean>>
+    setRenderScreen: Dispatch<SetStateAction<TRenderScreen>>
 }
 
-export function Logo({
-    setStart
-}: Props) {
+export function TitleScreen({ setRenderScreen }: Props) {
     return (
         <box 
             flexDirection="column" 
@@ -24,7 +23,7 @@ export function Logo({
                 <text fg={style.get().secondary}>Press any key to continue...</text>
                 <input 
                     focused
-                    onInput={() => setStart(true)}
+                    onInput={() => setRenderScreen('app')}
                 />
             </box>
         </box>
