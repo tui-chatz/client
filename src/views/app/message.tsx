@@ -8,11 +8,11 @@ export function Message() {
     const [contentTextarea, setContentTextarea] = useState<string>(""); 
 
     useEffect(() => {
-        console.log("Content textarea updated:", contentTextarea);
+        console.log("Debug:Content textarea updated:", contentTextarea);
     }, [contentTextarea]);
 
     const handleSubmit = (plainText: string): void => {
-        console.log("Submitting message:", plainText);
+        console.log("Debug: Submitting message:", plainText);
         let value: TMessage = {
             sender: nickname,
             message: plainText,

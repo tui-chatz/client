@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { TRenderScreen } from "../../types/render-screen";
 import { UserConfigRepository } from "../../repositories/user-config";
 import { style } from "../../..";
 
-export function CreateUser() {
+type Props = {
+    setRenderScreen: Dispatch<SetStateAction<TRenderScreen>>;
+};
+
+export function CreateUser({ setRenderScreen }: Props) {
     const [focus, setFocus] = useState<'username' | 'nickname'>('username');
     const [username, setUsername] = useState<string>('');
     const [nickname, setNickname] = useState<string>('');
@@ -12,6 +17,7 @@ export function CreateUser() {
         const config = { username, nickname };
         UserConfigRepository.save(config);
         setSuccess(true);
+        setTimeout(() => setRenderScreen('title-screen'), 3000);
     };
 
     return (
@@ -20,44 +26,45 @@ export function CreateUser() {
             height="100%"
         >
             <box
-            id="create-user"
-            borderStyle="rounded"
-            borderColor={style.get().secondary}
-            title="Create User"
-        >
-            {!success && <text fg={style.get().warning}>User does not exist. Please create a user for yourself.</text>}
-            {success && <text fg={style.get().success}>Configuration saved successfully! Reinitialize the application to apply changes.</text>}
-            <box
-                id="username-label"
+                id="create-user"
                 borderStyle="rounded"
                 borderColor={style.get().secondary}
-                title="user name"
+                title="Create User"
             >
-                <input 
-                    id="username-input" 
-                    placeholder="Enter your username" 
-                    focused={focus === 'username'}
-                    value={username}
-                    onInput={(value: string) => setUsername(value)}
-                    onChange={() => setFocus('nickname')}
-                />
+                {!success && <text fg={style.get().warning}>User does not exist. Please create a user for yourself.</text>}
+                {success && <text fg={style.get().success}>Configuration saved successfully! Await redirection to the title screen.</text>}
+
+                <box
+                    id="username-label"
+                    borderStyle="rounded"
+                    borderColor={style.get().secondary}
+                    title="user name"
+                >
+                    <input
+                        id="username-input"
+                        placeholder="Enter your username"
+                        focused={focus === 'username'}
+                        value={username}
+                        onInput={(value: string) => setUsername(value)}
+                        onChange={() => setFocus('nickname')}
+                    />
+                </box>
+                <box
+                    id="nickname-label"
+                    borderStyle="rounded"
+                    borderColor={style.get().secondary}
+                    title="nick name"
+                >
+                    <input
+                        id="nickname-input"
+                        placeholder="Enter your nickname"
+                        focused={focus === 'nickname'}
+                        value={nickname}
+                        onInput={(value: string) => setNickname(value)}
+                        onChange={handleSubmit}
+                    />
+                </box>
             </box>
-            <box
-                id="nickname-label"
-                borderStyle="rounded"
-                borderColor={style.get().secondary}
-                title="nick name"
-            >
-                <input 
-                    id="nickname-input" 
-                    placeholder="Enter your nickname" 
-                    focused={focus === 'nickname'}
-                    value={nickname}
-                    onInput={(value: string) => setNickname(value)}
-                    onChange={handleSubmit}
-                />
-            </box>
-        </box>
         </box>
     );
 }

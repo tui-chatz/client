@@ -1,0 +1,1 @@
+export type TRenderScreen = 'create-user' | 'app' | 'title-screen' | 'menu-option';
