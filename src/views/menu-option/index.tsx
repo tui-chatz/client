@@ -5,6 +5,7 @@ import { useKeyboard } from "@opentui/react";
 import { useState } from "react";
 import { KeyEvent, Selection, SelectOption, SelectRenderableOptions } from "@opentui/core";
 import { useSelectionHandler } from "@opentui/react";
+import { Commands } from "../components/commands";
 
 type Props = {
     setRenderScreen: Dispatch<SetStateAction<TRenderScreen>>;
@@ -64,6 +65,7 @@ export function MenuOption({ setRenderScreen }: Props) {
             justifyContent="center"
             alignItems="center"
         >
+            <Commands />
             <box 
                 borderStyle="rounded" 
                 borderColor={style.get().secondary}
