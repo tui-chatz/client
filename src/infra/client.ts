@@ -60,7 +60,7 @@ export class Client implements Subject {
     }
 
     public sendMessage(message: TMessage): void {
-        this.socket.write(JSON.stringify(message));
+        this.socket.write(Buffer.from(JSON.stringify(message)));
     }
 
     public disconnect(): void {

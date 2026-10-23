@@ -17,12 +17,6 @@ export function App({ setRenderScreen }: Props) {
     client.connect();
 
     useKeyboard((e: KeyEvent) => {
-        console.log('Debug: Key down event', e, {
-            key: e.name,
-            ctrl: e.ctrl,
-            shift: e.shift,
-            alt: e.option,
-        });
         if (e.name === "m" && e.shift) {
             console.log('Debug: Shift+M pressed');
             setRenderScreen("menu-option");
