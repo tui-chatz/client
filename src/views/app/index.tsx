@@ -7,6 +7,7 @@ import { client, style } from "../../..";
 import { KeyEvent } from "@opentui/core";
 import { useKeyboard } from "@opentui/react";
 import { TRenderScreen } from "../../types/render-screen";
+import { Commands } from "../components/commands";
 
 type Props = {
     setRenderScreen: Dispatch<SetStateAction<TRenderScreen>>;
@@ -16,12 +17,6 @@ export function App({ setRenderScreen }: Props) {
     client.connect();
 
     useKeyboard((e: KeyEvent) => {
-        console.log('Debug: Key down event', e, {
-            key: e.name,
-            ctrl: e.ctrl,
-            shift: e.shift,
-            alt: e.option,
-        });
         if (e.name === "m" && e.shift) {
             console.log('Debug: Shift+M pressed');
             setRenderScreen("menu-option");
@@ -37,13 +32,7 @@ export function App({ setRenderScreen }: Props) {
             height="100%"
             title="ChaTUI"
         >
-            <box borderStyle="rounded" borderColor={style.get().secondary}>
-                <text fg={style.get().secondary}>
-                    Commands:
-                    (Shift+m) Open menu |
-                    (Shift+q) Quit |
-                </text>
-            </box>
+            <Commands />
             <box flexDirection="row" justifyContent="space-between" height="100%">
                 <Sidebar />
                 <Painel />

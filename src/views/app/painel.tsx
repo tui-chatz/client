@@ -28,15 +28,17 @@ export function Painel() {
     const { username, nickname }: TUserConfig = UserConfigRepository.get();
 
     return (
-        <box 
+        <scrollbox 
             borderColor={style.get().secondary}
             borderStyle="rounded" 
             width="75%" 
             title={`Painel - ${username} [${nickname}]`}
+            stickyScroll={true}
+            stickyStart="bottom"
         >
             {messages.map((msg, index) => (
                 <text key={index}>{msg}</text>
             ))}
-        </box>
+        </scrollbox>
     )
 }
