@@ -35,13 +35,13 @@ function Index() {
   
   console.log("Debug: Is valid user:", isValidUser);
 
-  //// Exibir console: deixar descomentado
-  //// Não exibir console: deixar comentado
-  //const renderer = useRenderer();
-  //useEffect(() => {
-  //  renderer.console.show();
-  //  console.log("Renderer console shown");
-  //}, [])
+  // Exibir console: deixar descomentado
+  // Não exibir console: deixar comentado
+  const renderer = useRenderer();
+  useEffect(() => {
+    renderer.console.show();
+    console.log("Renderer console shown");
+  }, [])
 
   if (renderScreen === 'title-screen') return <TitleScreen setRenderScreen={setRenderScreen} />;
   if (renderScreen === 'create-user') return <CreateUser setRenderScreen={setRenderScreen} />;
